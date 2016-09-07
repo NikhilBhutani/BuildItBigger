@@ -17,12 +17,15 @@ public class MainActivity extends AppCompatActivity {
 
     private SupplyJokes supplyJokes;
     private final String JOKE_KEY = "joke_key";
+    private GetDataFromBackend.JokeListener jokeListener;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         supplyJokes = new SupplyJokes();
+
+
     }
 
 
@@ -49,11 +52,29 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void tellJoke(View view) {
-        Intent intent = new Intent(MainActivity.this, DisplayJokes.class);
-        intent.putExtra(JOKE_KEY, supplyJokes.getJoke());
-        startActivity(intent);
+
+
+        jokeListener = new GetDataFromBackend.JokeListener() {
+            @Override
+            public void jokehere(String response) {
+                Intent intent = new Intent(MainActivity.this, DisplayJokes.class);
+                intent.putExtra(JOKE_KEY, response);
+                startActivity(intent);
+
+            }
+        };
+        GetDataFromBackend dataFromBackend = new GetDataFromBackend(jokeListener);
+        dataFromBackend.execute();
         //  Toast.makeText(this, supplyJokes.getJoke(), Toast.LENGTH_SHORT).show();
     }
 
+/*
+    @Override
+    public void jokehere(String response) {
+        Intent intent = new Intent(MainActivity.this, DisplayJokes.class);
+        intent.putExtra(JOKE_KEY, response);
+        startActivity(intent);
 
+    }
+    */
 }
