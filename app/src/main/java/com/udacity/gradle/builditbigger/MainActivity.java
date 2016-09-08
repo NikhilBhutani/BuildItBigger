@@ -1,5 +1,6 @@
 package com.udacity.gradle.builditbigger;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
@@ -15,16 +16,20 @@ import com.github.nikhilbhutani.showjokelibrary.DisplayJokes;
 
 public class MainActivity extends AppCompatActivity {
 
-    private SupplyJokes supplyJokes;
+
     private final String JOKE_KEY = "joke_key";
     private GetDataFromBackend.JokeListener jokeListener;
+
+    //For Loading Indicator
+    public static ProgressDialog progressDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        supplyJokes = new SupplyJokes();
 
+        progressDialog = new ProgressDialog(this);
+        progressDialog.setMessage("Please Wait...");
 
     }
 
@@ -53,6 +58,7 @@ public class MainActivity extends AppCompatActivity {
 
     public void tellJoke(View view) {
 
+        progressDialog.show();
 
         jokeListener = new GetDataFromBackend.JokeListener() {
             @Override
@@ -68,13 +74,4 @@ public class MainActivity extends AppCompatActivity {
         //  Toast.makeText(this, supplyJokes.getJoke(), Toast.LENGTH_SHORT).show();
     }
 
-/*
-    @Override
-    public void jokehere(String response) {
-        Intent intent = new Intent(MainActivity.this, DisplayJokes.class);
-        intent.putExtra(JOKE_KEY, response);
-        startActivity(intent);
-
-    }
-    */
 }

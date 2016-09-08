@@ -67,7 +67,7 @@ public class GetDataFromBackend extends AsyncTask<Void, Void, String> {
     @Override
     protected void onPostExecute(String s) {
         System.out.println("HEEEEEEEEEEEEEEEYYYYYYYYY "+ s);
-
+        MainActivity.progressDialog.dismiss();
         jokeListener.jokehere(s);
        // Toast.makeText(context, s, Toast.LENGTH_LONG).show();
     }
