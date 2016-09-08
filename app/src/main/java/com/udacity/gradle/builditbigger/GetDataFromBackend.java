@@ -17,14 +17,14 @@ import java.io.IOException;
  */
 public class GetDataFromBackend extends AsyncTask<Void, Void, String> {
     private static MyApi myApiService = null;
- //   private Context context;
+    //   private Context context;
     JokeListener jokeListener;
 
-    public GetDataFromBackend(JokeListener listener){
+    public GetDataFromBackend(JokeListener listener) {
         this.jokeListener = listener;
     }
 
-    public interface JokeListener{
+    public interface JokeListener {
         public void jokehere(String response);
 
     }
@@ -38,7 +38,7 @@ public class GetDataFromBackend extends AsyncTask<Void, Void, String> {
     @Override
     protected String doInBackground(Void... strings) {
 
-        if(myApiService == null) {  // Only do this once
+        if (myApiService == null) {  // Only do this once
             MyApi.Builder builder = new MyApi.Builder(AndroidHttp.newCompatibleTransport(),
                     new AndroidJsonFactory(), null)
                     // options for running against local devappserver
@@ -55,10 +55,10 @@ public class GetDataFromBackend extends AsyncTask<Void, Void, String> {
 
             myApiService = builder.build();
         }
-      //   String name = strings[0];
+        //   String name = strings[0];
         try {
-                  return myApiService.getJoke().execute().getData();
-        //    return myApiService.sayHi(name).execute().getData();
+            return myApiService.getJoke().execute().getData();
+            //    return myApiService.sayHi(name).execute().getData();
         } catch (IOException e) {
             return e.getMessage();
         }
@@ -66,9 +66,8 @@ public class GetDataFromBackend extends AsyncTask<Void, Void, String> {
 
     @Override
     protected void onPostExecute(String s) {
-        System.out.println("HEEEEEEEEEEEEEEEYYYYYYYYY "+ s);
         MainActivity.progressDialog.dismiss();
         jokeListener.jokehere(s);
-       // Toast.makeText(context, s, Toast.LENGTH_LONG).show();
+        // Toast.makeText(context, s, Toast.LENGTH_LONG).show();
     }
 }

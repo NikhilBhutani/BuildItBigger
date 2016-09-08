@@ -1,13 +1,16 @@
 package com.udacity.gradle.builditbigger;
 
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.google.android.gms.ads.AdListener;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
+import com.google.android.gms.ads.InterstitialAd;
 
 
 /**
@@ -15,7 +18,25 @@ import com.google.android.gms.ads.AdView;
  */
 public class MainActivityFragment extends Fragment {
 
+    static InterstitialAd mInterstitialAd;
+
     public MainActivityFragment() {
+    }
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+        mInterstitialAd = new InterstitialAd(getActivity());
+    }
+
+    public static void requestNewInterstitial() {
+
+        AdRequest adRequest = new AdRequest.Builder()
+                .addTestDevice(AdRequest.DEVICE_ID_EMULATOR)
+                .build();
+
+        mInterstitialAd.loadAd(adRequest);
     }
 
     @Override
@@ -31,6 +52,21 @@ public class MainActivityFragment extends Fragment {
                 .addTestDevice(AdRequest.DEVICE_ID_EMULATOR)
                 .build();
         mAdView.loadAd(adRequest);
+
+        mInterstitialAd.setAdUnitId("ca-app-pub-3940256099942544/1033173712");
+        mInterstitialAd.setAdListener(new AdListener() {
+            @Override
+            public void onAdClosed() {
+                requestNewInterstitial();
+
+            }
+        });
+
+        requestNewInterstitial();
+
+
         return root;
     }
+
+
 }

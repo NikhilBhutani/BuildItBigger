@@ -28,6 +28,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+
         progressDialog = new ProgressDialog(this);
         progressDialog.setMessage("Please Wait...");
 
@@ -59,6 +60,12 @@ public class MainActivity extends AppCompatActivity {
     public void tellJoke(View view) {
 
         progressDialog.show();
+
+        if (MainActivityFragment.mInterstitialAd != null) {
+            if (MainActivityFragment.mInterstitialAd.isLoaded())
+                System.out.println("AD LOADED");
+            MainActivityFragment.mInterstitialAd.show();
+        }
 
         jokeListener = new GetDataFromBackend.JokeListener() {
             @Override
