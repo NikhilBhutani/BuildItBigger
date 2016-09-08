@@ -63,7 +63,7 @@ public class MainActivity extends AppCompatActivity {
 
         if (MainActivityFragment.mInterstitialAd != null) {
             if (MainActivityFragment.mInterstitialAd.isLoaded())
-                System.out.println("AD LOADED");
+
             MainActivityFragment.mInterstitialAd.show();
         }
 
