@@ -53,7 +53,7 @@ public class MainActivityFragment extends Fragment {
                 .build();
         mAdView.loadAd(adRequest);
 
-        mInterstitialAd.setAdUnitId("ca-app-pub-3940256099942544/1033173712");
+        mInterstitialAd.setAdUnitId(R.string.ad_unit_id);
         mInterstitialAd.setAdListener(new AdListener() {
             @Override
             public void onAdClosed() {
