@@ -1,5 +1,6 @@
 package com.udacity.gradle.builditbigger;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -18,16 +19,17 @@ import com.google.android.gms.ads.InterstitialAd;
  */
 public class MainActivityFragment extends Fragment {
 
-    static InterstitialAd mInterstitialAd;
+    public static InterstitialAd mInterstitialAd;
+    public static boolean mfree = true;
 
     public MainActivityFragment() {
+
     }
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        mInterstitialAd = new InterstitialAd(getActivity());
     }
 
     public static void requestNewInterstitial() {
@@ -37,6 +39,7 @@ public class MainActivityFragment extends Fragment {
                 .build();
 
         mInterstitialAd.loadAd(adRequest);
+
     }
 
     @Override
@@ -53,6 +56,7 @@ public class MainActivityFragment extends Fragment {
                 .build();
         mAdView.loadAd(adRequest);
 
+        mInterstitialAd = new InterstitialAd(getActivity());
         mInterstitialAd.setAdUnitId("ca-app-pub-3940256099942544/6300978111");
         mInterstitialAd.setAdListener(new AdListener() {
             @Override
@@ -60,12 +64,19 @@ public class MainActivityFragment extends Fragment {
                 requestNewInterstitial();
 
             }
-        });
 
+        });
         requestNewInterstitial();
 
-
         return root;
+    }
+
+    public static void show(){
+
+        if (mInterstitialAd!=null & mInterstitialAd.isLoaded()) {
+            mInterstitialAd.show();
+        }
+
     }
 
 

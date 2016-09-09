@@ -19,7 +19,6 @@ public class MainActivity extends AppCompatActivity {
 
     private final String JOKE_KEY = "joke_key";
     private GetDataFromBackend.JokeListener jokeListener;
-
     //For Loading Indicator
     public static ProgressDialog progressDialog;
 
@@ -28,12 +27,10 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-
         progressDialog = new ProgressDialog(this);
         progressDialog.setMessage("Please Wait...");
 
     }
-
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -61,10 +58,8 @@ public class MainActivity extends AppCompatActivity {
 
         progressDialog.show();
 
-        if (MainActivityFragment.mInterstitialAd != null) {
-            if (MainActivityFragment.mInterstitialAd.isLoaded())
-
-            MainActivityFragment.mInterstitialAd.show();
+        if (MainActivityFragment.mfree) {
+            MainActivityFragment.show();
         }
 
         jokeListener = new GetDataFromBackend.JokeListener() {

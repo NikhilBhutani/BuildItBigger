@@ -5,9 +5,7 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.animation.Interpolator;
 
-import com.google.android.gms.ads.InterstitialAd;
 
 
 /**
@@ -15,7 +13,7 @@ import com.google.android.gms.ads.InterstitialAd;
  */
 public class MainActivityFragment extends Fragment {
 
-    public static InterstitialAd mInterstitialAd = null;
+    public static boolean mfree = false;
 
     public MainActivityFragment() {
     }
@@ -28,4 +26,9 @@ public class MainActivityFragment extends Fragment {
 
         return root;
     }
+
+    public static void show(){
+
+    }
+
 }
